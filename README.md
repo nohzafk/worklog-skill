@@ -19,6 +19,9 @@ The `-g` flag installs globally (`~/.claude/skills/`), which is required since w
 /worklog week 2026-W19    # weekly summary for a specific ISO week
 ```
 
+> ⚠ The `week` keyword is required for weekly mode. `/worklog 2026-W19`
+> (without `week`) will be interpreted as a daily date and fail.
+
 ## How It Works
 
 1. Reads project list from `~/worklogs/config.yaml`

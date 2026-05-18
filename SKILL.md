@@ -1,25 +1,24 @@
 ---
 name: worklog
-description: Generate daily or weekly worklogs from Claude/Codex sessions and git commits
-arguments: "[DATE | week [WEEK]]"
+description: Generate daily or weekly worklogs from Claude/Codex sessions and git commits. Invoked as "/worklog" (today), "/worklog YYYY-MM-DD" (backfill a daily entry), "/worklog week" (current ISO week), or "/worklog week YYYY-Wnn" (specific ISO week).
+argument-hint: "[YYYY-MM-DD | week [YYYY-Wnn]]"
 ---
 
 Generate a worklog. The extraction script is at:
 `~/.claude/skills/worklog/scripts/extract_sessions.py`
 
-**Arguments:**
-
-- No args — daily worklog for today
-- `YYYY-MM-DD` — daily worklog for that date (backfill)
-- `week` — weekly summary for the current week
-- `week YYYY-Wnn` — weekly summary for a specific ISO week
+**Invocation arguments (as typed by the user):** `$ARGUMENTS`
 
 ## Step 1: Parse Arguments
 
-Determine the mode:
+Parse the `$ARGUMENTS` string above (it may be empty) to determine the mode:
 
-- If the first argument is `week` or `weekly`, set MODE=weekly. If a second argument like `2026-W19` is provided, use it as WEEK_LABEL; otherwise derive from today.
-- Otherwise, set MODE=daily. If an argument like `2026-05-10` is provided, use it as TARGET_DATE; otherwise default to today.
+- No arguments → MODE=daily, TARGET_DATE=today.
+- One arg matching `YYYY-MM-DD` → MODE=daily, TARGET_DATE=that date (backfill).
+- First arg is `week` or `weekly` → MODE=weekly.
+  - No second arg → WEEK_LABEL derived from today.
+  - Second arg matching `YYYY-Wnn` → WEEK_LABEL=that ISO week.
+- Anything else → tell the user the expected syntax and stop.
 
 ## Step 2: Read Configuration
 
