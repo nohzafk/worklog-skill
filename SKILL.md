@@ -2,6 +2,7 @@
 name: worklog
 description: Generate daily or weekly worklogs from Claude/Codex sessions and git commits. Invoked as "/worklog" (today), "/worklog YYYY-MM-DD" (backfill a daily entry), "/worklog week" (current ISO week), or "/worklog week YYYY-Wnn" (specific ISO week).
 argument-hint: "[YYYY-MM-DD | week [YYYY-Wnn]]"
+model: sonnet
 ---
 
 Generate a worklog. The extraction script is at:
